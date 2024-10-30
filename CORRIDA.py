@@ -47,7 +47,6 @@ pygame.display.set_caption('Corida')
 relogio = pygame.time.Clock()
 
 cont = cont1 = cont2 = cont3 = cont4 = cont5 = cont6 = 0
-
 speed = 3
  
 sprite_image2 = pygame.image.load('car 3.png')
@@ -91,7 +90,6 @@ novo_tamanho = (imagem_fundo.get_width() * 7, imagem_fundo.get_height() * 10)
 imagem_aumentada = pygame.transform.scale(imagem_fundo, novo_tamanho)
 
 while True:
-    
     cont += 3
     cont1 += 2
     cont2 += 1.7
@@ -112,7 +110,7 @@ while True:
             pygame.quit()
             exit()
 
-    
+   
     sprite_rect.topleft = (x_amarelo,cont)
     sprite_rect1.topleft = (x_amarelo1,cont1)
     sprite_rect2.topleft = (x_amarelo2,cont2)
@@ -148,7 +146,7 @@ while True:
         tela.blit(texto_formatado3,(largura/2.3, altura/2.6))
         #barulho_colisao.play()
         break
-        
+
     if sprite_rectcar2.colliderect(sprite_rect) or sprite_rectcar2.colliderect(sprite_rect1) or sprite_rectcar2.colliderect(sprite_rect2) or sprite_rectcar2.colliderect(sprite_rect3) or sprite_rectcar2.colliderect(sprite_rect4) or sprite_rectcar2.colliderect(sprite_rect5) or sprite_rectcar2.colliderect(sprite_rect6):
         tela.blit(texto_formatado3,(largura/2.3, altura/2.6))
         #barulho_colisao.play()
