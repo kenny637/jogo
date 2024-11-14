@@ -30,11 +30,11 @@ pontos = 0
 fonte = pygame.font.SysFont('Arial', 40, True, False)
 
 tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption('RPG')
+pygame.display.set_caption('Minas')
 relogio = pygame.time.Clock()
 
 while True:
-    relogio.tick(99999999999)
+    relogio.tick(300)
     tela.fill((0,0,0))
     mesagem = f'Pontos: {pontos}'
     texto_formatado = fonte.render(mesagem, False, (255, 255, 255))
