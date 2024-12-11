@@ -1,6 +1,9 @@
 from random import randint
 nv = 1
 
+cont = 0
+moeda = 0
+
 banco = 0
 experiencia = 0
 
@@ -14,6 +17,7 @@ fugio = 0
 iaatak = 10
 iaatakpesado = 20
 iacura = 5
+
 
 vc = 100
 ia = 100
@@ -35,10 +39,14 @@ print('3)Mago \n'
 print('4)Sacerdote \n'
       'atak:+2 '
       'cura:+5 '
-      'atak pesado:+2 \n')
+      'atak pesado:+2 ')
+print('5)Assasino \n'
+      'atak:+7 '
+      'cura:+1 '
+      'atak pesado:+5 \n')
 
 while True:
-    classe = int(input('Escolha uma classe: ')).strip()
+    classe = int(input('Escolha uma classe: '))
     if classe == 1:
         atak += 3
         vcatakpasado += 4
@@ -59,56 +67,110 @@ while True:
         vcatakpasado += 2
         cura += 5
         break
+    if classe == 5:
+        atak += 7
+        vcatakpasado += 5
+        cura += 1
+        break
 
 print('RAÇA')
 print('1)Humano\n'
-      '+2 em todos os atribultos')
-print('2)Elfo\n'
+      '+2 em todas as classes'
+      '+1 em classe Assasino')
+print('2)Demi-Humano\n'
+      '+1 em classe Arqueira, '
+      '+1 em classe sacerdote, '
+      '-1 em classe Mago, '
+      '+3 em classe Gerreiro, '
+      '+3 em classe Assasino')
+print('3)Elfo\n'
       '+2 em classe Arqueira, '
-      '-2 em classe Mago, '
-      '-1 em classe Gerreiro')
-print('3)Ogro\n'
+      '+5 em classe sacerdote, '
+      '+1 em classe Mago, '
+      '-1 em classe Gerreiro, '
+      '-1 em classe Assasino')
+print('4)Ogro\n'
       '-4 em todas as classe, '
-      '+6 em classe Gerreiro, ') 
+      '+4 em classe Gerreiro, ') 
 while True:
-    raça = int(input('Escolha uma Raça: ')).strip()
+    raça = int(input('Escolha uma Raça:'))
     if raça == 1:
         atak += 2
         cura += 2
         vcatakpasado += 2
-        break
-    if raça == 2:
-        if classe == 2 or classe == 4:
-            atak += 2
-            cura += 2
-            vcatakpasado += 2
+        if classe == 5:
+            atak += 1
             break
-        elif classe == 1:
-            atak += -1
-            cura += -1
-            vcatakpasado += -1
+    if raça == 2:
+        if classe == 1:
+            atak += 3
+            cura += 3
+            vcatakpasado -= 4
+            break
+        elif classe == 2:
+            atak += 1
+            cura += 1
+            vcatakpasado += 1
             break
         elif classe == 3:
-            atak += -2
-            cura += -2
-            vcatakpasado += -2
+            atak -= 1
+            cura -= 1
+            vcatakpasado -= 1
             break
+        elif classe == 4:
+            atak += 1
+            cura += 2
+            vcatakpasado += 1
+            break
+        elif classe == 5:
+            atak += 3
+            cura += 1
+            vcatakpasado += 5
+            break
+        
     if raça == 3:
-        if classe == 2 or classe == 3 or classe == 4:
-            atak += -4
-            cura += -4
-            vcatakpasado += -4
+        if classe == 1:
+            atak -= 1
+            cura -= 1
+            vcatakpasado -= 1
+            break
+        elif classe == 2 :
+            atak += 3
+            cura += 3
+            vcatakpasado += 2
+            break
+        elif classe == 3:
+            atak -= 2
+            cura -= 2
+            vcatakpasado -= 2
+            break
+        elif classe == 4:
+            atak += 3
+            cura += 5
+            vcatakpasado += 2
+            break
+        elif classe == 5:
+            atak -= 1
+            cura -= 2
+            vcatakpasado -= 1
+            break
+    if raça == 4:
+        if classe == 2 or classe == 3 or classe == 4 or classe == 5:
+            atak -= 4
+            cura -= 4
+            vcatakpasado -= 4
             break
         elif classe == 1:
-            atak += 6
+            atak += 4
             vcatakpasado += 6
             break
+
  
 while True:
     vcaleatorio = randint(0, 10)
-    print('Nivel',playerlv)
+    print('\nNivel',playerlv)
     print(f'1)Ataque: {atak:<10} 2)Cura: {cura}\n3)atak pesado: {vcatakpasado:<5} 4)fugir: 0')
-    dec = int(input('Digite o numero da a ação: ')).upper().strip()
+    dec = int(input('Digite o numero da a ação: '))
     if dec == 1:
         a = ia - atak
         ia = a
@@ -178,7 +240,7 @@ while True:
             print('\033[1;33mVOCÊ VENCEU\033[m')
             moeda = randint(10, 50)
             xp = randint(10, 50)
-            banco = banco + moeda
+            banco += moeda
             experiencia = experiencia + xp
             print(f'Moedas: {banco}')
             print(f'XP: {experiencia}')
@@ -212,139 +274,108 @@ while True:
                 vcatakpasado += 3
 
             print('UPGRADE')
-            up = int(input('Aumento de ataque: 1, Aumento de Cura: 2, Aumento de taque pesado: 3: ')).upper().strip()
+            up = int(input('Aumento de ataque: 1, Aumento de Cura: 2, Aumento de taque pesado: 3: '))
             if up == 1:
-                atak = atak + 5
+                atak += 5
+                if classe == 1:
+                    atak += 2
             elif up == 2:
-                cura = cura + 5
+
+                cura += 5
             elif up == 3:
-                vcatakpasado = vcatakpasado + 10
+                vcatakpasado += 10
         
         while True:
-            loja=str(input('\033[1;35mDESEJA IR PARA A LOJA S/N: \033[m')).upper().strip()
-            if loja != 'S':
+            loja = str(input('\033[1;35mDESEJA IR PARA A LOJA S/N: \033[m')).upper().strip()
+            if loja == 'N':
+                break
+            elif loja != 'S':
                 print('INVALIDO')
-            if loja == 'S':
+            elif loja == 'S':
                 print('=='*15)
-                print(f'{'LOJA':>15}')
+                print(f'{"LOJA":>15}')
                 print('=='*15)
-                print(moeda)
-                print('1)Porção de almento Cura +5  R$ 50')
-                print('2)Espada afiada +7 R$ 80')
-                print('3)Porrete +5 R$ 90')
-                print('4)Barril de vida +10 R$ 150')
-                print('5)Katana +10 R$ 170')
-                print('6)Arco melhorado +10 R$ 160')
-                print('7)cajado Demoniaco +8 R$ 150')
-                print('8)sair')
+                print(f'Moedas disponíveis: {banco}')
+                print('1) Porção de aumento Cura +5  R$ 50')
+                print('2) Espada afiada +7 R$ 80')
+                print('3) Porrete +5 R$ 90')
+                print('4) Barril de vida +10 R$ 150')
+                print('5) Katana +10 R$ 170')
+                print('6) Arco melhorado +10 R$ 160')
+                print('7) Cajado Demoniaco +8 R$ 150')
+                print('8) Sair')
+
+                compra = int(input('Digite o número para comprar: '))
                 
-                compra = int(input('Digite para comprar')).upper().strip()
-                if compra == 1:
+                if compra == 1 and banco >= 50:
                     cura += 5
-                    moeda -= 50
-                    if classe == 4 :
+                    banco -= 50
+                    if classe == 4:
                         cura += 5
-                if compra == 2:
+                    print('Você comprou Porção de aumento Cura +5')
+                elif compra == 2 and banco >= 80:
                     atak += 7
-                    moeda -= 50
                     vcatakpasado += 7
+                    banco -= 80
                     if classe == 1:
                         atak += 3
                         vcatakpasado += 3
-                if compra == 3:
+                    print('Você comprou Espada afiada +7')
+                elif compra == 3 and banco >= 90:
                     atak += 5
                     vcatakpasado += 5
-                    moeda -= 50
+                    banco -= 90
                     if raça == 3:
                         atak += 2
                         vcatakpasado += 2
-                if compra == 4:
+                    print('Você comprou Porrete +5')
+                elif compra == 4 and banco >= 150:
                     cura += 10
-                    moeda -= 50
-                    if classe == 4 :
+                    banco -= 150
+                    if classe == 4:
                         cura += 15
-                if compra == 5:
+                    print('Você comprou Barril de vida +10')
+                elif compra == 5 and banco >= 170:
                     atak += 10
                     vcatakpasado += 12
-                    moeda -= 50
+                    banco -= 170
                     if classe == 1:
                         atak += 12
                         vcatakpasado += 15
-                if compra == 6:
-                    moeda -= 50
+                    print('Você comprou Katana +10')
+                elif compra == 6 and banco >= 160:
+                    banco -= 160
                     if classe == 2:
                         if raça == 2:
                             atak += 15
                             vcatakpasado += 17
-                if compra == 7:
-                    moeda -= 50
+                    print('Você comprou Arco melhorado +10')
+                elif compra == 7 and banco >= 150:
+                    banco -= 150
                     if classe == 3:
                         atak += 15
                         vcatakpasado += 17
-                if compra == 8:
+                    print('Você comprou Cajado Demoníaco +8')
+                elif compra == 8:
                     break
-
-            elif loja == 'N':
-                break
+                else:
+                    print("Você não tem moedas suficientes ou opção inválida.")
         while True:
             sn= str(input(f'continuar para nv{nv} S/N: ')).upper().strip()
-            if sn != 'S':
+            if sn == 'N':
+                break
+            elif sn != 'S':
                 print('INVALIDO')
-            if sn == 'S':
+            elif sn == 'S':
+                cont += 1
                 ia = 200
                 vc = 100
                 if nv == 10:
                     print('\033[1;31mBOSS FINAL\033[m')
-                    vc = 500
-                    ia = 1000
-                    iaatak = 44
-                    iaatakpesado = 55
-                    iacura = 47
-                if nv == 9:
-                    vc = 450
-                    ia = 900
-                    iaatak = 40
-                    iaatakpesado = 50
-                    iacura = 45
-                if nv == 8:
-                    vc = 400
-                    ia = 800
-                    iaatak = 30
-                    iaatakpesado = 45
-                    iacura = 42
-                if nv == 7:
-                    vc = 350
-                    ia = 700
-                    iaatak = 26
-                    iaatakpesado = 39
-                    iacura = 35
-                if nv == 6:
-                    vc = 300
-                    ia = 600
-                    iaatak = 21
-                    iaatakpesado = 33
-                    iacura = 30
-                if nv == 5:
-                    vc = 250
-                    ia = 500
-                    iaatak = 18
-                    iaatakpesado = 28
-                    iacura = 20
-                if nv == 4:
-                    vc = 200
-                    ia = 400
-                    iaatak = 14
-                    iaatakpesado = 23
-                    iacura = 15
-                if nv == 3:
-                    vc = 150
-                    ia = 300
-                if nv == 2:
-                    vc = 100
-                    ia = 200
-
-            elif sn == 'N':
-                break
+                if nv > 1:
+                    iaatak += 7
+                    iaatakpesado += 7
+                    iacura += 7
     elif vc <= 0:
         print('\033[1;31mGAMER OVER\033[m')
         break

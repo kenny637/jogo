@@ -6,7 +6,7 @@ import math
 pygame.init()
 
 # Configurações da janela
-largura, altura = 600, 800
+largura, altura = 800, 800
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Animação com 7 Imagens Redimensionadas")
 
@@ -35,7 +35,7 @@ frame_7 = pygame.transform.scale(frame_7, (nova_largura, nova_altura))
 quadros = [frame_1, frame_2, frame_3, frame_4, frame_5, frame_6, frame_7]
 
 # Posições iniciais
-x, y = -40, 40  # Ajuste conforme necessário
+x, y = 60, 40  # Ajuste conforme necessário
 pj_x = largura/2
 pj_y = altura/1.8
 # Controle da animação
@@ -48,9 +48,15 @@ inimigos = [
     {'x': 500, 'y': 100, 'velocidade': 2},  # Inimigo 2
 ]
 
+fundo = pygame.image.load("chão.png")  # Imagem de fundo
+largura_fundo = fundo.get_width()  # Largura da imagem de fundo
+altura_fundo = fundo.get_height()
+
+fundo2 = pygame.transform.scale(frame_1, (nova_largura, nova_altura))
+
 # Botões do menu
-retangulo_iniciar = pygame.draw.rect(tela, (0, 0, 0), (250, 320, 150, 60))
-retangulo_sair = pygame.draw.rect(tela, (0, 0, 0), (250, 400, 150, 60))
+retangulo_iniciar = pygame.draw.rect(tela, (0, 0, 0), (320, 320, 170, 60))
+retangulo_sair = pygame.draw.rect(tela, (0, 0, 0), (320, 400, 170, 60))
 
 # Botão de restart
 retangulo_restart = pygame.draw.rect(tela, (0, 255, 0), (180, 300, 150, 60))
@@ -62,12 +68,15 @@ vida_jogador = 200  # Vida inicial do jogador
 # Função para desenhar a tela inicial (menu)
 def desenhar_menu_principal():
     tela.fill((255, 255, 255))  # Fundo branco
-    pygame.display.flip()
+    pygame.display.flip()       
+
 
 # Função para desenhar a tela de jogo (pode ser qualquer outra tela)
 def desenhar_tela_jogo():
     tela.fill((0, 0, 255))  # Fundo azul para a tela de jogo
-    pygame.draw.rect(tela, (0, 255, 0), (pj_x, pj_y, 50, 50))  # Jogador
+    tela.blit(fundo, (0, 0))
+
+    jogador = pygame.draw.rect(tela, (0, 255, 0), (pj_x, pj_y, 50, 50))  # Jogador
 
     # Desenhar os inimigos
     for inimigo in inimigos:
@@ -83,6 +92,7 @@ def desenhar_tela_jogo():
 # Função para desenhar a tela de Game Over
 def desenhar_game_over():
     tela.fill((0, 0, 0))  # Fundo preto
+    
     fonte_game_over = pygame.font.SysFont('Arial', 50)
     texto_game_over = fonte_game_over.render("GAME OVER", True, (255, 0, 0))
     tela.blit(texto_game_over, (180, 200))
@@ -161,18 +171,23 @@ while rodando:
             pj_x += velocidade
 
         # Criando o retângulo do jogador
-        pj_rect = pygame.Rect(pj_x, pj_y, 50, 50)
+    pj_rect = pygame.Rect(pj_x, pj_y, 50, 50)
 
         # Mover os inimigos em direção ao jogador
-        for inimigo in inimigos:
-            mover_inimigo(inimigo, pj_x, pj_y-40)
+    for inimigo in inimigos:
+        mover_inimigo(inimigo, pj_x, pj_y-40)
 
+    posicao_fundo_x = -pj_x // 2  # Mover o fundo metade da velocidade do personagem
+
+        # Desenhar a tela
+    tela.fill((0, 0, 0))  # Limpar a tela com a cor preta
+    #tela.blit(imagem_aumentada, (cont, x_1 + 500))    # Desenhar o fundo movendo-se com o personagem
         # Verificar colisão
-        if verificar_colisao(pj_rect, inimigos):
-            vida_jogador -= 1  # Subtrai 1 da vida do jogador
+    if verificar_colisao(pj_rect, inimigos):
+        vida_jogador -= 0.5  # Subtrai 1 da vida do jogador
             
-            if vida_jogador <= 0:
-                estado_tela = 'game_over'  # Muda para a tela de Game Over
+        if vida_jogador <= 0:
+            estado_tela = 'game_over'  # Muda para a tela de Game Over
 
     # Desenha a tela de acordo com o estado atual
     if estado_tela == 'menu_principal':

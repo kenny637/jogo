@@ -47,7 +47,7 @@ pygame.display.set_caption('Corida')
 relogio = pygame.time.Clock()
 
 cont = cont1 = cont2 = cont3 = cont4 = cont5 = cont6 = 0
-speed = 3
+speed = 2
  
 sprite_image2 = pygame.image.load('car 3.png')
 sprite_rectcar2 = sprite_image2.get_rect()
@@ -240,5 +240,4 @@ while True:
         cont5 += 0.5
         cont6 += 0.5
    
-
     pygame.display.flip()
